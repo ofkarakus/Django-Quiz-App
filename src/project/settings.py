@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'quiz_app.apps.QuizAppConfig',
     
     # third_party
-    'rest_framework'
+    'rest_framework',
+    'nested_admin'
 ]
 
 MIDDLEWARE = [
