@@ -12,8 +12,21 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = "Categories"
 
+    @property
+    def quiz_count(self):
+        return self.quiz_set.count()
+        # use <modelName>_set to access child model from parent model
 
-class Quiz(models.Model):
+# ABSTRACT MODEL
+class Date(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Quiz(Date):
     title = models.CharField(max_length=100, verbose_name="Quiz Title")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -25,8 +38,13 @@ class Quiz(models.Model):
     class Meta:
         verbose_name_plural = "Quizzes"
 
+    @property
+    def question_count(self):
+        return self.question_set.count()
+        # use <modelName>_set to access child model from parent model
 
-class Question(models.Model):
+
+class Question(Date):
 
     SCALE = (
         (0, 'Beginner'),
