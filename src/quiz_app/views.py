@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from rest_framework import generics
-from .models import Category, Quiz
-from .serializers import CategorySerializer, QuizSerializer
+from .models import Category, Question, Quiz
+from .serializers import CategorySerializer, QuestionSerializer, QuizSerializer
 
 # Create your views here.
 
@@ -23,4 +22,14 @@ class QuizList(generics.ListAPIView):
         # ! => (starts with lowercase initial letter)
         # <modelName>__<propName>  ==> category__id
         queryset = queryset.filter(category__name=category)
+        return queryset
+
+
+class QuestionList(generics.ListAPIView):
+    serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        queryset = Question.objects.all()
+        title = self.kwargs['title']
+        queryset = queryset.filter(quiz__title=title)
         return queryset
