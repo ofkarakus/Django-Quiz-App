@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # my_apps
     'quiz_app.apps.QuizAppConfig',
+    'accounts.apps.AccountsConfig',
 
     # third_party
     'rest_framework',

@@ -1,5 +1,4 @@
 from rest_framework import generics
-
 from quiz_app.paginations import MyPagination
 from .models import Category, Question, Quiz
 from .serializers import CategorySerializer, QuestionSerializer, QuizSerializer
