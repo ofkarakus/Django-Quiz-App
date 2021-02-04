@@ -1,4 +1,6 @@
 from rest_framework import generics
+
+from quiz_app.paginations import MyPagination
 from .models import Category, Question, Quiz
 from .serializers import CategorySerializer, QuestionSerializer, QuizSerializer
 
@@ -27,6 +29,7 @@ class QuizList(generics.ListAPIView):
 
 class QuestionList(generics.ListAPIView):
     serializer_class = QuestionSerializer
+    pagination_class = MyPagination  # (Specific Pagination => only for this view)
 
     def get_queryset(self):
         queryset = Question.objects.all()
