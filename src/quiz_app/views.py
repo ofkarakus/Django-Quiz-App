@@ -2,6 +2,8 @@ from rest_framework import generics
 from quiz_app.paginations import MyPagination
 from .models import Category, Question, Quiz
 from .serializers import CategorySerializer, QuestionSerializer, QuizSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+# from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
 # Create your views here.
 
@@ -9,10 +11,12 @@ from .serializers import CategorySerializer, QuestionSerializer, QuizSerializer
 class CategoryList(generics.ListAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
+    permission_classes = [AllowAny]
 
 
 class QuizList(generics.ListAPIView):
     serializer_class = QuizSerializer
+    permission_classes = [AllowAny]
 
     # overwrite queryset with get_queryset() method
     def get_queryset(self):
@@ -28,7 +32,12 @@ class QuizList(generics.ListAPIView):
 
 class QuestionList(generics.ListAPIView):
     serializer_class = QuestionSerializer
-    pagination_class = MyPagination  # (Specific Pagination => only for this view)
+    # (Specific Pagination => only for this view)
+    pagination_class = MyPagination
+    permission_classes = [IsAuthenticated]
+    
+    # Multiple Authentication - respectively
+    # authentication_classes = [TokenAuthentication, SessionAuthentication]
 
     def get_queryset(self):
         queryset = Question.objects.all()
