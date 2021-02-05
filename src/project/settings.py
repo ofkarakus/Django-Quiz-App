@@ -45,7 +45,8 @@ INSTALLED_APPS = [
 
     # third_party
     'rest_framework',
-    'nested_admin'
+    'nested_admin',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,14 @@ AUTH_PASSWORD_VALIDATORS = [
 #     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 #     'PAGE_SIZE': 20
 # }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
